@@ -5,12 +5,14 @@ pg.defaults.ssl = true;
 
 module.exports = {
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10
     },
-    useNullAsDefault: true,
     migrations: {
+      tableName: 'knex_migrations',
       directory: './data/migrations'
     },
     seeds: {
@@ -30,7 +32,7 @@ module.exports = {
       directory: './data/migrations'
     },
     seeds: {
-      directory: './data/migrations'
+      directory: './data/seeds'
     }
   }
 };
