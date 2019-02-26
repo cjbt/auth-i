@@ -13,7 +13,7 @@ route.post('/register', (req, res) => {
     db('auth')
       .insert({ username, password: hash })
       .then(user => {
-        res.json({ message: `You have been logged in, ${username}` });
+        res.json({ message: `You have registered, ${username}!` });
       })
       .catch(err =>
         res.status(400).json({ message: 'Could not be added', err })
