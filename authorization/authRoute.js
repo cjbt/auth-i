@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('../data/dbConfig');
@@ -6,10 +7,11 @@ const route = express.Router();
 
 route.post('/register', (req, res) => {
   const { username, password } = req.body;
-  const hash = bcrypt.hashSync(password, 10);
+
   if (!username || !password) {
-    res.status(422).json({ message: 'Fields required' });
+    res.status(422).json({ message: 'username and password fields required' });
   } else {
+    const hash = bcrypt.hashSync(password, 10);
     db('auth')
       .insert({ username, password: hash })
       .then(user => {
