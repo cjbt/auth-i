@@ -24,14 +24,17 @@ const Login = props => {
   const [pass, setPass] = useState('');
 
   const onHandleSubmit = e => {
+    const api = axios.create({ withCredentials: true, })
     e.preventDefault();
-    axios
+    api
       .post('https://lambdaauth.herokuapp.com/login', {
         input,
         pass
       })
       .then(res => console.log(res))
       .catch(err => console.log(err));
+    setInput('');
+    setPass('');
   };
   return (
     <form onSubmit={onHandleSubmit}>
